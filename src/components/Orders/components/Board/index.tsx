@@ -7,13 +7,11 @@ interface IOrdersData {
 
 interface IBoardProps {
   orders: IOrdersData[];
-  quantityOfOrders: number;
   typeOrder: 'waiting' | 'in_production' | 'done';
 }
 
 export default function Board({
   orders,
-  quantityOfOrders,
   typeOrder,
 }: IBoardProps) {
   return (
@@ -29,7 +27,7 @@ export default function Board({
           {typeOrder === 'in_production' && 'Em produção'}
           {typeOrder === 'done' && 'Pronto!'}
         </strong>
-        <span>{quantityOfOrders}</span>
+        <span>({orders.length})</span>
       </header>
 
       <OrdersContainer>

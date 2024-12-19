@@ -8,12 +8,28 @@ export default function Orders() {
     { tableNumber: 5, numberOfItems: 2 }
   ];
 
+  const inProductionOrders = [
+    { tableNumber: 3, numberOfItems: 6 },
+    { tableNumber: 7, numberOfItems: 8 }
+  ];
+
+  const doneOrders = [
+    { tableNumber: 1, numberOfItems: 2 },
+  ];
+
   return (
     <Container>
       <Board
         orders={waitingOrders}
-        quantityOfOrders={1}
         typeOrder='waiting'
+      />
+      <Board
+        orders={inProductionOrders}
+        typeOrder='in_production'
+      />
+      <Board
+        orders={doneOrders}
+        typeOrder='done'
       />
     </Container>
   );

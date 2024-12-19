@@ -1,26 +1,20 @@
-import { Board, Container, OrdersContainer } from './styles';
+import Board from './components/Board';
+
+import { Container } from './styles';
 
 export default function Orders() {
+  const waitingOrders = [
+    { tableNumber: 2, numberOfItems: 4 },
+    { tableNumber: 5, numberOfItems: 2 }
+  ];
+
   return (
     <Container>
-      <Board>
-        <header>
-          <span>🕛</span>
-          <strong>Fila de espera</strong>
-          <span>(1)</span>
-        </header>
-
-        <OrdersContainer>
-          <button type="button">
-            <strong>Mesa 2</strong>
-            <span>2 Items</span>
-          </button>
-          <button type="button">
-            <strong>Mesa 2</strong>
-            <span>2 Items</span>
-          </button>
-        </OrdersContainer>
-      </Board>
+      <Board
+        orders={waitingOrders}
+        quantityOfOrders={1}
+        typeOrder='waiting'
+      />
     </Container>
   );
 }

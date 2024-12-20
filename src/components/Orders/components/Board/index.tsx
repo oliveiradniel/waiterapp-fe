@@ -11,6 +11,12 @@ export default function Board({
   orders,
   typeOrder,
 }: OrdersBoardProps) {
+  const emptyOrderBoardText = (
+    typeOrder === 'WAITING' && 'Não há nenhum pedido em espera.' ||
+    typeOrder === 'IN_PRODUCTION' && 'Não há nenhum pedido em produção.' ||
+    typeOrder === 'DONE' && 'Não há nenhum pedido pronto.'
+  );
+
   return (
     <Container>
       <header>
@@ -27,14 +33,20 @@ export default function Board({
         <span>({orders.length})</span>
       </header>
 
-      <OrdersContainer>
-        {orders.map((order) => (
-          <button type="button">
-            <strong>Mesa {order.table}</strong>
-            <span>{order.products.length} Items</span>
-          </button>
-        ))}
-      </OrdersContainer>
+      {orders.length ? (
+        <OrdersContainer>
+          {orders.map((order) => (
+            <button type="button" key={order._id}>
+              <strong>Mesa {order.table}</strong>
+              <span>{order.products.length} Items</span>
+            </button>
+          ))}
+        </OrdersContainer>
+      ) : (
+        <p className='empty-order-board'>
+          {emptyOrderBoardText}
+        </p>
+      )}
     </Container>
   );
 }

@@ -14,6 +14,13 @@ export const  Container = styled.div`
     justify-content: center;
     padding: 8px;
   }
+
+  .empty-order-board {
+    color: rgba(0, 0, 0, 0.4);
+    font-weight: bold;
+    margin-top: 24px;
+    text-align: center;
+  }
 `;
 
 export const OrdersContainer = styled.div`

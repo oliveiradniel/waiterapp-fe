@@ -1,19 +1,6 @@
-import { Container, OrdersContainer } from './styles';
+import { Order } from '../../../../types/Order';
 
-interface Order {
-  _id: string;
-  table: string;
-  status: string;
-  products: {
-    _id: string;
-    product: {
-      name: string;
-      imagePath: string;
-      price: number;
-    },
-    quantity: number;
-  }[];
-}
+import { Container, OrdersContainer } from './styles';
 
 interface OrdersBoardProps {
   orders: Order[];

@@ -11,15 +11,15 @@ export default function Orders() {
     <Container>
       <Board
         orders={waitingOrders}
-        typeOrder='waiting'
+        typeOrder='WAITING'
       />
       <Board
         orders={inProductionOrders}
-        typeOrder='in_production'
+        typeOrder='IN_PRODUCTION'
       />
       <Board
         orders={doneOrders}
-        typeOrder='done'
+        typeOrder='DONE'
       />
     </Container>
   );

@@ -1,13 +1,20 @@
 import { Order } from '../../../../types/Order';
 
+import OrderModal from '../../../OrderModal';
+
 import { Container, OrdersContainer } from './styles';
 
 interface OrdersBoardProps {
+  onClick: () => void;
   orders: Order[];
   typeOrder: 'WAITING' | 'IN_PRODUCTION' | 'DONE';
+
+  isModalVisible?: boolean;
 }
 
 export default function Board({
+  isModalVisible = false,
+  onClick,
   orders,
   typeOrder,
 }: OrdersBoardProps) {
@@ -19,6 +26,8 @@ export default function Board({
 
   return (
     <Container>
+      <OrderModal visible={isModalVisible} />
+
       <header>
         <span>
           {typeOrder === 'WAITING' && '🕛'}
@@ -33,10 +42,14 @@ export default function Board({
         <span>({orders.length})</span>
       </header>
 
-      {orders.length ? (
+      {orders.length > 0 ? (
         <OrdersContainer>
           {orders.map((order) => (
-            <button type="button" key={order._id}>
+            <button
+              key={order._id}
+              onClick={() => onClick()}
+              type="button"
+            >
               <strong>Mesa {order.table}</strong>
               <span>{order.products.length} Items</span>
             </button>

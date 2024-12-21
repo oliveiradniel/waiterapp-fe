@@ -1,12 +1,13 @@
 import closeIcon from '../../assets/images/close-icon.svg';
 
-import { ModalBody, Overlay } from './styles';
+import { ModalBody, OrderDetails, Overlay } from './styles';
 
 interface OrdelModalProps {
+  onClose: () => void;
   visible: boolean;
 }
 
-export default function OrderModal({ visible }: OrdelModalProps) {
+export default function OrderModal({ onClose, visible }: OrdelModalProps) {
   if (!visible) {
     return null;
   }
@@ -17,7 +18,10 @@ export default function OrderModal({ visible }: OrdelModalProps) {
         <header>
           <strong>Mesa 2</strong>
 
-          <button type="button">
+          <button
+            type="button"
+            onClick={onClose}
+          >
             <img src={closeIcon} alt="Fechar" />
           </button>
         </header>
@@ -30,6 +34,10 @@ export default function OrderModal({ visible }: OrdelModalProps) {
             <strong>Em produção</strong>
           </div>
         </div>
+
+        <OrderDetails>
+          <strong>Itens</strong>
+        </OrderDetails>
       </ModalBody>
     </Overlay>
   );

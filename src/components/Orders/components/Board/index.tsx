@@ -6,15 +6,16 @@ import { Container, OrdersContainer } from './styles';
 
 interface OrdersBoardProps {
   onClick: () => void;
+  onClose: () => void;
   orders: Order[];
   typeOrder: 'WAITING' | 'IN_PRODUCTION' | 'DONE';
-
-  isModalVisible?: boolean;
+  isModalVisible: boolean;
 }
 
 export default function Board({
-  isModalVisible = false,
+  isModalVisible,
   onClick,
+  onClose,
   orders,
   typeOrder,
 }: OrdersBoardProps) {
@@ -26,7 +27,10 @@ export default function Board({
 
   return (
     <Container>
-      <OrderModal visible={isModalVisible} />
+      <OrderModal
+        onClose={onClose}
+        visible={isModalVisible}
+      />
 
       <header>
         <span>

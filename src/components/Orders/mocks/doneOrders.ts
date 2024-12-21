@@ -1,4 +1,6 @@
-export const doneOrders = [
+import { Order } from '../../../types/Order';
+
+export const doneOrders: Order[] = [
   {
     _id: '6372e48cbcd195b0d3d0f7f3',
     table: '1',

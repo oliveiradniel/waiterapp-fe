@@ -1,14 +1,17 @@
+import { Order } from '../../types/Order';
+
 import closeIcon from '../../assets/images/close-icon.svg';
 
 import { ModalBody, OrderDetails, Overlay } from './styles';
 
 interface OrdelModalProps {
   onClose: () => void;
+  order: Order | null;
   visible: boolean;
 }
 
-export default function OrderModal({ onClose, visible }: OrdelModalProps) {
-  if (!visible) {
+export default function OrderModal({ onClose, order, visible }: OrdelModalProps) {
+  if (!visible || !order) {
     return null;
   }
 
@@ -30,8 +33,16 @@ export default function OrderModal({ onClose, visible }: OrdelModalProps) {
           <small>Status do pedido</small>
 
           <div>
-            <span>🕛</span>
-            <strong>Em produção</strong>
+            <span>
+              {order.status === 'WAITING' && '🕛'}
+              {order.status === 'IN_PRODUCTION' && '👩🏽‍🍳'}
+              {order.status === 'DONE' && '✅'}
+            </span>
+            <strong>
+              {order.status === 'WAITING' && 'Fila de espera'}
+              {order.status === 'IN_PRODUCTION' && 'Em produção'}
+              {order.status === 'DONE' && 'Pronto'}
+            </strong>
           </div>
         </div>
 

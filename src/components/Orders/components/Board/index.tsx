@@ -5,10 +5,11 @@ import OrderModal from '../../../OrderModal';
 import { Container, OrdersContainer } from './styles';
 
 interface OrdersBoardProps {
-  onClick: () => void;
+  onClick: (order: Order) => void;
   onClose: () => void;
   orders: Order[];
   typeOrder: 'WAITING' | 'IN_PRODUCTION' | 'DONE';
+  selectedOrder: Order | null;
   isModalVisible: boolean;
 }
 
@@ -17,6 +18,7 @@ export default function Board({
   onClick,
   onClose,
   orders,
+  selectedOrder,
   typeOrder,
 }: OrdersBoardProps) {
   const emptyOrderBoardText = (
@@ -30,6 +32,7 @@ export default function Board({
       <OrderModal
         onClose={onClose}
         visible={isModalVisible}
+        order={selectedOrder}
       />
 
       <header>
@@ -51,7 +54,7 @@ export default function Board({
           {orders.map((order) => (
             <button
               key={order._id}
-              onClick={() => onClick()}
+              onClick={() => onClick(order)}
               type="button"
             >
               <strong>Mesa {order.table}</strong>

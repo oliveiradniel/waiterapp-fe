@@ -3,6 +3,7 @@ import { Order } from '../../types/Order';
 import closeIcon from '../../assets/images/close-icon.svg';
 
 import { ModalBody, OrderDetails, Overlay } from './styles';
+import formatCurrency from '../../utils/formatCurrency';
 
 interface OrdelModalProps {
   onClose: () => void;
@@ -70,7 +71,7 @@ export default function OrderModal({ onClose, order, visible }: OrdelModalProps)
 
                 <div className="product-details">
                   <strong>{product.name}</strong>
-                  <span>{product.price}</span>
+                  <span>{formatCurrency(product.price)}</span>
                 </div>
               </div>
             ))}
@@ -78,7 +79,7 @@ export default function OrderModal({ onClose, order, visible }: OrdelModalProps)
 
           <div className="total">
             <span>Total</span>
-            <strong>R${total},00</strong>
+            <strong>{formatCurrency(total)}</strong>
           </div>
         </OrderDetails>
       </ModalBody>

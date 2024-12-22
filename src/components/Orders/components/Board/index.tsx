@@ -1,24 +1,17 @@
 import { Order } from '../../../../types/Order';
 
-import OrderModal from '../../../OrderModal';
-
 import { Container, OrdersContainer } from './styles';
 
 interface OrdersBoardProps {
+  // eslint-disable-next-line no-unused-vars
   onClick: (order: Order) => void;
-  onClose: () => void;
   orders: Order[];
   typeOrder: 'WAITING' | 'IN_PRODUCTION' | 'DONE';
-  selectedOrder: Order | null;
-  isModalVisible: boolean;
 }
 
 export default function Board({
-  isModalVisible,
   onClick,
-  onClose,
   orders,
-  selectedOrder,
   typeOrder,
 }: OrdersBoardProps) {
   const emptyOrderBoardText = (
@@ -29,12 +22,6 @@ export default function Board({
 
   return (
     <Container>
-      <OrderModal
-        onClose={onClose}
-        visible={isModalVisible}
-        order={selectedOrder}
-      />
-
       <header>
         <span>
           {typeOrder === 'WAITING' && '🕛'}

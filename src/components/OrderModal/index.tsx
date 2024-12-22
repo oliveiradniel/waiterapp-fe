@@ -88,27 +88,25 @@ export default function OrderModal({ onClose, order, visible }: OrdelModalProps)
 
         <Actions>
           {order.status !== 'DONE' && (
-            <>
-              <button
-                type="button"
-                className='primary'
-              >
-                <span>
-                  {order.status === 'WAITING' && '👩🏽‍🍳'}
-                  {order.status === 'IN_PRODUCTION' && '✅'}
-                </span>
-                <strong>{order.status === 'WAITING' && 'Iniciar Produção'}
-                  {order.status === 'IN_PRODUCTION' && 'Concluir Pedido'}</strong>
-              </button>
-
-              <button
-                type="button"
-                className='secondary'
-              >
-                <strong>Cancelar Pedido</strong>
-              </button>
-            </>
+            <button
+              type="button"
+              className='primary'
+            >
+              <span>
+                {order.status === 'WAITING' && '👩🏽‍🍳'}
+                {order.status === 'IN_PRODUCTION' && '✅'}
+              </span>
+              <strong>{order.status === 'WAITING' && 'Iniciar Produção'}
+                {order.status === 'IN_PRODUCTION' && 'Concluir Pedido'}</strong>
+            </button>
           )}
+
+          <button
+            type="button"
+            className='secondary'
+          >
+            <strong>Cancelar Pedido</strong>
+          </button>
         </Actions>
       </ModalBody>
     </Overlay>

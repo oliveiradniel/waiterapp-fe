@@ -7,6 +7,7 @@ import { inProductionOrders } from './mocks/inProductionOrders';
 import { doneOrders } from './mocks/doneOrders';
 
 import Board from './components/Board';
+import OrderModal from '../OrderModal';
 
 import { Container } from './styles';
 
@@ -26,30 +27,27 @@ export default function Orders() {
 
   return (
     <Container>
-      <Board
-        isModalVisible={isOrderModalVisible}
-        onClick={handleOpenOrderModal}
+      <OrderModal
         onClose={handleCloseOrderModal}
+        visible={isOrderModalVisible}
+        order={selectedOrder}
+      />
+
+      <Board
+        onClick={handleOpenOrderModal}
         orders={waitingOrders}
-        selectedOrder={selectedOrder}
         typeOrder='WAITING'
       />
 
       <Board
-        isModalVisible={isOrderModalVisible}
         onClick={handleOpenOrderModal}
-        onClose={handleCloseOrderModal}
         orders={inProductionOrders}
-        selectedOrder={selectedOrder}
         typeOrder='IN_PRODUCTION'
       />
 
       <Board
-        isModalVisible={isOrderModalVisible}
         onClick={handleOpenOrderModal}
-        onClose={handleCloseOrderModal}
         orders={doneOrders}
-        selectedOrder={selectedOrder}
         typeOrder='DONE'
       />
     </Container>

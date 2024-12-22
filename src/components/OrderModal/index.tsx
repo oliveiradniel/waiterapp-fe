@@ -11,9 +11,14 @@ interface OrdelModalProps {
 }
 
 export default function OrderModal({ onClose, order, visible }: OrdelModalProps) {
+
   if (!visible || !order) {
     return null;
   }
+
+  const total = order.products.reduce((total, { product, quantity }) => (
+    total + (product.price * quantity)
+  ), 0);
 
   return (
     <Overlay>
@@ -48,6 +53,33 @@ export default function OrderModal({ onClose, order, visible }: OrdelModalProps)
 
         <OrderDetails>
           <strong>Itens</strong>
+
+          <div className="order-items">
+            {order.products.map(({ _id, product, quantity }) => (
+              <div key={_id} className="item">
+                <img
+                  src={`http://localhost:3001/uploads/${product.imagePath}`}
+                  alt={product.name}
+                  width="56"
+                  height="28.51"
+                />
+
+                <span className="quantity">
+                  {quantity}x
+                </span>
+
+                <div className="product-details">
+                  <strong>{product.name}</strong>
+                  <span>{product.price}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="total">
+            <span>Total</span>
+            <strong>R${total},00</strong>
+          </div>
         </OrderDetails>
       </ModalBody>
     </Overlay>

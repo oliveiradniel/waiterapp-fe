@@ -1,8 +1,10 @@
+import { useId } from 'react';
+
 import { Order } from '../../types/Order';
 
 import closeIcon from '../../assets/images/close-icon.svg';
 
-import { ModalBody, OrderDetails, Overlay } from './styles';
+import { Actions, ModalBody, OrderDetails, Overlay } from './styles';
 import formatCurrency from '../../utils/formatCurrency';
 
 interface OrdelModalProps {
@@ -12,6 +14,7 @@ interface OrdelModalProps {
 }
 
 export default function OrderModal({ onClose, order, visible }: OrdelModalProps) {
+  const id = useId();
 
   if (!visible || !order) {
     return null;
@@ -56,8 +59,8 @@ export default function OrderModal({ onClose, order, visible }: OrdelModalProps)
           <strong>Itens</strong>
 
           <div className="order-items">
-            {order.products.map(({ _id, product, quantity }) => (
-              <div key={_id} className="item">
+            {order.products.map(({ product, quantity }) => (
+              <div key={id} className="item">
                 <img
                   src={`http://localhost:3001/uploads/${product.imagePath}`}
                   alt={product.name}
@@ -82,6 +85,31 @@ export default function OrderModal({ onClose, order, visible }: OrdelModalProps)
             <strong>{formatCurrency(total)}</strong>
           </div>
         </OrderDetails>
+
+        <Actions>
+          {order.status !== 'DONE' && (
+            <>
+              <button
+                type="button"
+                className='primary'
+              >
+                <span>
+                  {order.status === 'WAITING' && '👩🏽‍🍳'}
+                  {order.status === 'IN_PRODUCTION' && '✅'}
+                </span>
+                <strong>{order.status === 'WAITING' && 'Iniciar Produção'}
+                  {order.status === 'IN_PRODUCTION' && 'Concluir Pedido'}</strong>
+              </button>
+
+              <button
+                type="button"
+                className='secondary'
+              >
+                <strong>Cancelar Pedido</strong>
+              </button>
+            </>
+          )}
+        </Actions>
       </ModalBody>
     </Overlay>
   );

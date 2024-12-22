@@ -3,8 +3,8 @@ export interface Order {
   table: string;
   status: 'WAITING' | 'IN_PRODUCTION' | 'DONE';
   products: {
-    _id: string;
     product: {
+      _id: string;
       name: string;
       imagePath: string;
       price: number;

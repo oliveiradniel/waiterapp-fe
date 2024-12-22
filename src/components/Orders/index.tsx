@@ -21,6 +21,7 @@ export default function Orders() {
 
   function handleCloseOrderModal() {
     setIsOrderModalVisible(false);
+    setSelectedOrder(null);
   }
 
   return (

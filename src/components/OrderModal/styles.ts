@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const Overlay = styled.div`
   align-items: center;
   backdrop-filter: blur(4.5px);
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: rgba(0, 0, 0, 0.6);
   display: flex;
   height: 100%;
   justify-content: center;
@@ -109,5 +109,39 @@ export const OrderDetails = styled.div`
       font-weight: 500;
       opacity: 0.8;
     }
+  }
+`;
+
+export const Actions = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 32px;
+
+  .primary {
+    align-items: center;
+    background-color: #333;
+    border: none;
+    border-radius: 48px;
+    color: #fff;
+    display: flex;
+    font-size: 16px;
+    gap: 8px;
+    justify-content: center;
+    padding: 12px 24px;
+    width: 100%;
+  }
+
+  .secondary {
+    align-items: center;
+    border: none;
+    background-color: transparent;
+    color: #d73035;
+    display: flex;
+    font-weight: bold;
+    gap: 8px;
+    justify-content: center;
+    margin-top: 12px;
+    padding: 14px 24px;
   }
 `;

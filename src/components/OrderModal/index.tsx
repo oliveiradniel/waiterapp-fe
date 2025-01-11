@@ -28,7 +28,7 @@ export default function OrderModal({ onClose, order, visible }: OrdelModalProps)
     <Overlay>
       <ModalBody>
         <header>
-          <strong>Mesa 2</strong>
+          <strong>Mesa {order.table}</strong>
 
           <button
             type="button"

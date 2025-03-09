@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 
+import { toast } from 'react-toastify';
+
 import { api } from '../../utils/api';
 
 import { Order } from '../../types/Order';
@@ -44,6 +46,8 @@ export default function Orders() {
     setIsLoading(true);
 
     await api.delete(`/orders/${selectedOrder?._id}`);
+
+    toast.success(`O pedido da mesa ${selectedOrder?.table} foi cancelado`);
 
     setIsLoading(false);
     setIsOrderModalVisible(false);

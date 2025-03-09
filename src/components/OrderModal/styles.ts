@@ -118,6 +118,11 @@ export const Actions = styled.div`
   justify-content: center;
   margin-top: 32px;
 
+  button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
   .primary {
     align-items: center;
     background-color: #333;

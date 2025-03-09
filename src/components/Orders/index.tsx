@@ -12,19 +12,21 @@ import { Container } from './styles';
 export default function Orders() {
   const [isOrderModalVisible, setIsOrderModalVisible] = useState(false);
   const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const [orders, setOrders] = useState<Order[]>([]);
 
   useEffect(() => {
-    api.get('/orders')
-      .then(({ data }) => {
-        setOrders(data);
-      });
+    api.get('/orders').then(({ data }) => {
+      setOrders(data);
+    });
   }, []);
 
   const waitingOrders = orders.filter(({ status }) => status === 'WAITING');
 
-  const inProductionOrders = orders.filter(({ status }) => status === 'IN_PRODUCTION');
+  const inProductionOrders = orders.filter(
+    ({ status }) => status === 'IN_PRODUCTION'
+  );
 
   const doneOrders = orders.filter(({ status }) => status === 'DONE');
 
@@ -38,30 +40,45 @@ export default function Orders() {
     setSelectedOrder(null);
   }
 
+  async function handleCancelOrder() {
+    setIsLoading(true);
+
+    await api.delete(`/orders/${selectedOrder?._id}`);
+
+    setIsLoading(false);
+    setIsOrderModalVisible(false);
+
+    setOrders((prevState) =>
+      prevState.filter((order) => order._id !== selectedOrder?._id)
+    );
+  }
+
   return (
     <Container>
       <OrderModal
-        onClose={handleCloseOrderModal}
         visible={isOrderModalVisible}
         order={selectedOrder}
+        isLoading={isLoading}
+        onClose={handleCloseOrderModal}
+        onCancelOrder={handleCancelOrder}
       />
 
       <Board
         onClick={handleOpenOrderModal}
         orders={waitingOrders}
-        typeOrder='WAITING'
+        typeOrder="WAITING"
       />
 
       <Board
         onClick={handleOpenOrderModal}
         orders={inProductionOrders}
-        typeOrder='IN_PRODUCTION'
+        typeOrder="IN_PRODUCTION"
       />
 
       <Board
         onClick={handleOpenOrderModal}
         orders={doneOrders}
-        typeOrder='DONE'
+        typeOrder="DONE"
       />
     </Container>
   );

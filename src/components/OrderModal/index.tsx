@@ -8,21 +8,30 @@ import { Actions, ModalBody, OrderDetails, Overlay } from './styles';
 import formatCurrency from '../../utils/formatCurrency';
 
 interface OrdelModalProps {
-  onClose: () => void;
   order: Order | null;
   visible: boolean;
+  isLoading: boolean;
+  onClose: () => void;
+  onCancelOrder: () => void;
 }
 
-export default function OrderModal({ onClose, order, visible }: OrdelModalProps) {
+export default function OrderModal({
+  order,
+  visible,
+  isLoading,
+  onClose,
+  onCancelOrder,
+}: OrdelModalProps) {
   const id = useId();
 
   if (!visible || !order) {
     return null;
   }
 
-  const total = order.products.reduce((total, { product, quantity }) => (
-    total + (product.price * quantity)
-  ), 0);
+  const total = order.products.reduce(
+    (total, { product, quantity }) => total + product.price * quantity,
+    0
+  );
 
   return (
     <Overlay>
@@ -30,10 +39,7 @@ export default function OrderModal({ onClose, order, visible }: OrdelModalProps)
         <header>
           <strong>Mesa {order.table}</strong>
 
-          <button
-            type="button"
-            onClick={onClose}
-          >
+          <button type="button" onClick={onClose}>
             <img src={closeIcon} alt="Fechar" />
           </button>
         </header>
@@ -68,9 +74,7 @@ export default function OrderModal({ onClose, order, visible }: OrdelModalProps)
                   height="28.51"
                 />
 
-                <span className="quantity">
-                  {quantity}x
-                </span>
+                <span className="quantity">{quantity}x</span>
 
                 <div className="product-details">
                   <strong>{product.name}</strong>
@@ -88,22 +92,23 @@ export default function OrderModal({ onClose, order, visible }: OrdelModalProps)
 
         <Actions>
           {order.status !== 'DONE' && (
-            <button
-              type="button"
-              className='primary'
-            >
+            <button type="button" className="primary" disabled={isLoading}>
               <span>
                 {order.status === 'WAITING' && '👩🏽‍🍳'}
                 {order.status === 'IN_PRODUCTION' && '✅'}
               </span>
-              <strong>{order.status === 'WAITING' && 'Iniciar Produção'}
-                {order.status === 'IN_PRODUCTION' && 'Concluir Pedido'}</strong>
+              <strong>
+                {order.status === 'WAITING' && 'Iniciar Produção'}
+                {order.status === 'IN_PRODUCTION' && 'Concluir Pedido'}
+              </strong>
             </button>
           )}
 
           <button
             type="button"
-            className='secondary'
+            className="secondary"
+            disabled={isLoading}
+            onClick={onCancelOrder}
           >
             <strong>Cancelar Pedido</strong>
           </button>

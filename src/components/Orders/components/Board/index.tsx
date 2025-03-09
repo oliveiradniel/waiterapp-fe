@@ -14,11 +14,10 @@ export default function Board({
   orders,
   typeOrder,
 }: OrdersBoardProps) {
-  const emptyOrderBoardText = (
-    typeOrder === 'WAITING' && 'Não há nenhum pedido em espera.' ||
-    typeOrder === 'IN_PRODUCTION' && 'Não há nenhum pedido em produção.' ||
-    typeOrder === 'DONE' && 'Não há nenhum pedido pronto.'
-  );
+  const emptyOrderBoardText =
+    (typeOrder === 'WAITING' && 'Não há nenhum pedido em espera.') ||
+    (typeOrder === 'IN_PRODUCTION' && 'Não há nenhum pedido em produção.') ||
+    (typeOrder === 'DONE' && 'Não há nenhum pedido pronto.');
 
   return (
     <Container>
@@ -50,9 +49,7 @@ export default function Board({
           ))}
         </OrdersContainer>
       ) : (
-        <p className='empty-order-board'>
-          {emptyOrderBoardText}
-        </p>
+        <p className="empty-order-board">{emptyOrderBoardText}</p>
       )}
     </Container>
   );

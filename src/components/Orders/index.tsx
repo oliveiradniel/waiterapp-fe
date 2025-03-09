@@ -47,13 +47,34 @@ export default function Orders() {
 
     await api.delete(`/orders/${selectedOrder?._id}`);
 
-    toast.success(`O pedido da mesa ${selectedOrder?.table} foi cancelado`);
+    toast.success(`O pedido da mesa ${selectedOrder?.table} foi cancelado!`);
 
     setIsLoading(false);
     setIsOrderModalVisible(false);
 
     setOrders((prevState) =>
       prevState.filter((order) => order._id !== selectedOrder?._id)
+    );
+  }
+
+  async function handleChangeOrderStatus() {
+    setIsLoading(true);
+
+    const status =
+      selectedOrder?.status === 'WAITING' ? 'IN_PRODUCTION' : 'DONE';
+
+    await api.patch(`/orders/${selectedOrder?._id}`, { status });
+
+    toast.success(
+      `O pedido da mesa ${selectedOrder?.table} teve o status alterado!`
+    );
+    setIsLoading(false);
+    setIsOrderModalVisible(false);
+
+    setOrders((prevState) =>
+      prevState.map((order) =>
+        order._id === selectedOrder?._id ? { ...order, status } : order
+      )
     );
   }
 
@@ -65,6 +86,7 @@ export default function Orders() {
         isLoading={isLoading}
         onClose={handleCloseOrderModal}
         onCancelOrder={handleCancelOrder}
+        onChangeOrderStatus={handleChangeOrderStatus}
       />
 
       <Board

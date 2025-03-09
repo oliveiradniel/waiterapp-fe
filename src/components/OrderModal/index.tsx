@@ -13,6 +13,7 @@ interface OrdelModalProps {
   isLoading: boolean;
   onClose: () => void;
   onCancelOrder: () => void;
+  onChangeOrderStatus: () => void;
 }
 
 export default function OrderModal({
@@ -21,6 +22,7 @@ export default function OrderModal({
   isLoading,
   onClose,
   onCancelOrder,
+  onChangeOrderStatus,
 }: OrdelModalProps) {
   const id = useId();
 
@@ -92,7 +94,12 @@ export default function OrderModal({
 
         <Actions>
           {order.status !== 'DONE' && (
-            <button type="button" className="primary" disabled={isLoading}>
+            <button
+              type="button"
+              className="primary"
+              disabled={isLoading}
+              onClick={onChangeOrderStatus}
+            >
               <span>
                 {order.status === 'WAITING' && '👩🏽‍🍳'}
                 {order.status === 'IN_PRODUCTION' && '✅'}
